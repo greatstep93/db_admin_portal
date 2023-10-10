@@ -10,7 +10,8 @@
   </parent>
   <groupId>ru.greatstep</groupId>
   <artifactId>db_greatstep</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0</version>
+  <packaging>pom</packaging>
   <name>db_greatstep</name>
   <description>db_greatstep</description>
   <properties>
