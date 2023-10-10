@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+  <changeSet author="greatstep" id="create_schema_db_admin_portal">
+    <sql>create schema db_admin_portal</sql>
+    <rollback/>
+  </changeSet>
+
+  <changeSet author="greatstep" id="create_table_systems">
+    <createTable tableName="systems" schemaName="db_admin_portal">
+      <column name="id" type="bigint" autoIncrement="true">
+        <constraints primaryKey="true"
+          primaryKeyName="pk_systems_id" unique="true"/>
+      </column>
+      <column name="system_name" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="greatstep" id="create_table_users">
+    <createTable tableName="users" schemaName="db_admin_portal">
+      <column name="id" type="bigint" autoIncrement="true">
+        <constraints primaryKey="true"
+          primaryKeyName="pk_user_id" unique="true"/>
+      </column>
+      <column name="login" type="varchar(255)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="email" type="varchar(255)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="password" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="is_active" type="boolean">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="greatstep" id="create_table_user_to_system">
+    <createTable tableName="user_to_system" schemaName="db_admin_portal">
+      <column name="id" type="bigint" autoIncrement="true">
+        <constraints primaryKey="true"
+          primaryKeyName="pk_user_to_system_id"/>
+      </column>
+      <column name="system_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="user_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="role_id" type="bigint">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="greatstep" id="create_table_roles">
+    <createTable tableName="roles" schemaName="db_admin_portal">
+      <column name="id" type="bigint" autoIncrement="true">
+        <constraints primaryKey="true"
+          primaryKeyName="pk_roles_id" unique="true"/>
+      </column>
+      <column name="role_name" type="varchar(255)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="is_active" type="boolean" defaultValue="true">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="greatstep" id="add_foreign_keys_from_user_to_system">
+    <addForeignKeyConstraint
+      baseTableSchemaName="db_admin_portal"
+      baseTableName="user_to_system"
+      baseColumnNames="system_id"
+      constraintName="fk_user_to_system_system_id"
+      referencedTableSchemaName="db_admin_portal"
+      referencedTableName="systems"
+      referencedColumnNames="id"/>
+
+    <addForeignKeyConstraint
+      baseTableSchemaName="db_admin_portal"
+      baseTableName="user_to_system"
+      baseColumnNames="user_id"
+      constraintName="fk_user_to_system_user_id"
+      referencedTableSchemaName="db_admin_portal"
+      referencedTableName="users"
+      referencedColumnNames="id"/>
+
+    <addForeignKeyConstraint
+      baseTableSchemaName="db_admin_portal"
+      baseTableName="user_to_system"
+      baseColumnNames="role_id"
+      constraintName="fk_user_to_system_role_id"
+      referencedTableSchemaName="db_admin_portal"
+      referencedTableName="roles"
+      referencedColumnNames="id"/>
+
+    <addUniqueConstraint
+      schemaName="db_admin_portal"
+      tableName="user_to_system"
+      columnNames="system_id, user_id, role_id"/>
+
+  </changeSet>
+
+  <changeSet author="greatstep" id="create_table_applications">
+    <createTable tableName="applications" schemaName="db_admin_portal">
+      <column name="id" type="bigint" autoIncrement="true">
+        <constraints primaryKey="true"
+          primaryKeyName="pk_applications_id"/>
+      </column>
+      <column name="application_name" type="varchar(255)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="application_link" type="varchar(255)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="gitlab_link" type="varchar(255)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="status" type="varchar(50)">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="assignment_user" type="bigint">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="last_update_user" type="bigint">
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="last_date" type="timestamptz" defaultValueComputed="current_timestamp">
+        <constraints nullable="false" unique="true"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="greatstep" id="add_foreign_keys_applications">
+    <addForeignKeyConstraint
+      baseTableSchemaName="db_admin_portal"
+      baseTableName="applications"
+      baseColumnNames="assignment_user"
+      constraintName="fk_user_to_applications_assignment_user"
+      referencedTableSchemaName="db_admin_portal"
+      referencedTableName="users"
+      referencedColumnNames="id"/>
+
+    <addForeignKeyConstraint
+      baseTableSchemaName="db_admin_portal"
+      baseTableName="applications"
+      baseColumnNames="last_update_user"
+      constraintName="fk_user_to_applications_last_update_user"
+      referencedTableSchemaName="db_admin_portal"
+      referencedTableName="users"
+      referencedColumnNames="id"/>
+
+  </changeSet>
+
+
+</databaseChangeLog>
