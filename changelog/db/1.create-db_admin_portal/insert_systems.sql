@@ -1,0 +1,1 @@
+INSERT INTO db_admin_portal.systems(system_name) VALUES ('admin-portal')

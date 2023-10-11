@@ -5,8 +5,13 @@
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
 
-  <changeSet author="greatstep" id="create_schema_db_admin_portal">
+  <changeSet author="greatstep" id="insert_roles">
     <sqlFile path="changelog/db/1.create-db_admin_portal/insert_roles.sql"/>
+    <rollback/>
+  </changeSet>
+
+  <changeSet author="greatstep" id="insert_system_dictionary">
+    <sqlFile path="changelog/db/1.create-db_admin_portal/insert_systems.sql"/>
     <rollback/>
   </changeSet>
 
