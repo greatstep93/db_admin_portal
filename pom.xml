@@ -16,7 +16,7 @@
   <description>db_admin_portal</description>
   <properties>
     <java.version>17</java.version>
-    <postgres.url>jdbc:postgresql://localhost:5432/greatstep</postgres.url>
+    <postgres.url>jdbc:postgresql://localhost:9990/greatstep</postgres.url>
     <postgres.username>greatstep</postgres.username>
     <postgres.password>djljgfL1250</postgres.password>
 
