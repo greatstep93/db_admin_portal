@@ -10,86 +10,36 @@
     <rollback/>
   </changeSet>
 
-  <changeSet author="greatstep" id="create_table-ip_location_lite_db3">
-    <createTable tableName="ip_location_lite_db3" schemaName="db_ip_list">
+  <changeSet author="greatstep" id="create_table-ip_white_list">
+    <createTable tableName="ip_white_list" schemaName="db_ip_list">
       <column name="id" type="bigint" autoIncrement="true">
         <constraints primaryKey="true"
-          primaryKeyName="pk_ip_location_lite_db3_id" unique="true"/>
+          primaryKeyName="pk_ip_white_list_id" unique="true"/>
       </column>
-      <column name="ip_in" type="bigint"/>
-      <column name="ip_out" type="bigint"/>
+      <column name="ip_address" type="bigint">
+        <constraints nullable="false"/>
+      </column>
       <column name="country_code" type="varchar(5)"/>
       <column name="country" type="varchar(100)"/>
-      <column name="state" type="varchar(100)"/>
+      <column name="region" type="varchar(100)"/>
       <column name="city" type="varchar(100)"/>
     </createTable>
   </changeSet>
 
-  <changeSet author="greatstep" id="insert_system_dictionary">
-    <sqlFile path="changelog/db/2.create-ip-list-db/insert-ip2_location_lit_db3.sql"/>
-    <rollback/>
-  </changeSet>
-
-  <changeSet author="greatstep" id="create_table-ip_location_lite_db3_ipv6">
-    <createTable tableName="ip_location_lite_db3_ipv6" schemaName="db_ip_list">
+  <changeSet author="greatstep" id="create_table-ip_black_list">
+    <createTable tableName="ip_black_list" schemaName="db_ip_list">
       <column name="id" type="bigint" autoIncrement="true">
         <constraints primaryKey="true"
-          primaryKeyName="pk_ip_location_lite_db3_ipv6_id" unique="true"/>
+          primaryKeyName="pk_ip_black_list_id" unique="true"/>
       </column>
-      <column name="ip_in" type="bigint"/>
-      <column name="ip_out" type="bigint"/>
+      <column name="ip_address" type="bigint">
+        <constraints nullable="false"/>
+      </column>
       <column name="country_code" type="varchar(5)"/>
       <column name="country" type="varchar(100)"/>
-      <column name="state" type="varchar(100)"/>
+      <column name="region" type="varchar(100)"/>
       <column name="city" type="varchar(100)"/>
     </createTable>
-  </changeSet>
-
-  <changeSet author="greatstep" id="insert-ip_location_lite_db3_ipv6.sql">
-    <sqlFile path="changelog/db/2.create-ip-list-db/insert-ip_location_lite_db3_ipv6.sql"/>
-    <rollback/>
-  </changeSet>
-
-  <changeSet author="greatstep" id="create_table-ip_proxy_location_lite_db3">
-    <createTable tableName="ip_proxy_location_lite_db3" schemaName="db_ip_list">
-      <column name="id" type="bigint" autoIncrement="true">
-        <constraints primaryKey="true"
-          primaryKeyName="pk_ip_proxy_location_lite_db3_id" unique="true"/>
-      </column>
-      <column name="ip_in" type="bigint"/>
-      <column name="ip_out" type="bigint"/>
-      <column name="access_code" type="varchar(5)"/>
-      <column name="country_code" type="varchar(5)"/>
-      <column name="country" type="varchar(100)"/>
-      <column name="state" type="varchar(100)"/>
-      <column name="city" type="varchar(100)"/>
-    </createTable>
-  </changeSet>
-
-  <changeSet author="greatstep" id="insert-ip_proxy_location_lite_db3.sql">
-    <sqlFile path="changelog/db/2.create-ip-list-db/insert-ip2_proxy_location_lit_db3.sql"/>
-    <rollback/>
-  </changeSet>
-
-  <changeSet author="greatstep" id="create_table-ip_proxy_location_lite_db3_ipv6">
-    <createTable tableName="ip_proxy_location_lite_db3_ipv6" schemaName="db_ip_list">
-      <column name="id" type="bigint" autoIncrement="true">
-        <constraints primaryKey="true"
-          primaryKeyName="pk_ip_proxy_location_lite_db3_ipv6_id" unique="true"/>
-      </column>
-      <column name="ip_in" type="bigint"/>
-      <column name="ip_out" type="bigint"/>
-      <column name="access_code" type="varchar(5)"/>
-      <column name="country_code" type="varchar(5)"/>
-      <column name="country" type="varchar(100)"/>
-      <column name="state" type="varchar(100)"/>
-      <column name="city" type="varchar(100)"/>
-    </createTable>
-  </changeSet>
-
-  <changeSet author="greatstep" id="insert-ip_proxy_location_lite_db3_ipv6.sql">
-    <sqlFile path="changelog/db/2.create-ip-list-db/insert-ip_proxy_location_lite_db3_ipv6.sql"/>
-    <rollback/>
   </changeSet>
 
 </databaseChangeLog>
