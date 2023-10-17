@@ -5,41 +5,27 @@
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
 
-  <changeSet author="greatstep" id="create_schema-db_ip_list">
-    <sql>create schema db_ip_list</sql>
-    <rollback/>
-  </changeSet>
-
-  <changeSet author="greatstep" id="create_table-ip_white_list">
-    <createTable tableName="ip_white_list" schemaName="db_ip_list">
+  <changeSet author="greatstep" id="create_table-ip_list">
+    <createTable tableName="ip_list" schemaName="db_admin_portal">
       <column name="id" type="bigint" autoIncrement="true">
         <constraints primaryKey="true"
-          primaryKeyName="pk_ip_white_list_id" unique="true"/>
+          primaryKeyName="pk_ip_list_id" unique="true"/>
       </column>
       <column name="ip_address" type="bigint">
-        <constraints nullable="false"/>
+        <constraints nullable="false" unique="true"/>
+      </column>
+      <column name="ip_address_string" type="varchar(15)">
+        <constraints nullable="false" unique="true"/>
       </column>
       <column name="country_code" type="varchar(5)"/>
       <column name="country" type="varchar(100)"/>
       <column name="region" type="varchar(100)"/>
       <column name="city" type="varchar(100)"/>
+      <column name="access" type="boolean" defaultValue="true">
+        <constraints nullable="false"/>
+      </column>
     </createTable>
   </changeSet>
 
-  <changeSet author="greatstep" id="create_table-ip_black_list">
-    <createTable tableName="ip_black_list" schemaName="db_ip_list">
-      <column name="id" type="bigint" autoIncrement="true">
-        <constraints primaryKey="true"
-          primaryKeyName="pk_ip_black_list_id" unique="true"/>
-      </column>
-      <column name="ip_address" type="bigint">
-        <constraints nullable="false"/>
-      </column>
-      <column name="country_code" type="varchar(5)"/>
-      <column name="country" type="varchar(100)"/>
-      <column name="region" type="varchar(100)"/>
-      <column name="city" type="varchar(100)"/>
-    </createTable>
-  </changeSet>
 
 </databaseChangeLog>
